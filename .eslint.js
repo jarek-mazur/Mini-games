@@ -1,0 +1,106 @@
+const a11yRules = [
+    'accessible-emoji',
+    'alt-text',
+    'anchor-has-content',
+    'anchor-is-valid',
+    'aria-activedescendant-has-tabindex',
+    'aria-props',
+    'aria-proptypes',
+    'aria-role',
+    'aria-unsupported-elements',
+    'autocomplete-valid',
+    'click-events-have-key-events',
+    'control-has-associated-label',
+    'heading-has-content',
+    'html-has-lang',
+    'iframe-has-title',
+    'img-redundant-alt',
+    'interactive-supports-focus',
+    'label-has-associated-control',
+    'label-has-for',
+    'lang',
+    'media-has-caption',
+    'mouse-events-have-key-events',
+    'no-access-key',
+    'no-autofocus',
+    'no-distracting-elements',
+    'no-interactive-element-to-noninteractive-role',
+    'no-noninteractive-element-interactions',
+    'no-noninteractive-element-to-interactive-role',
+    'no-noninteractive-tabindex',
+    'no-onchange',
+    'no-redundant-roles',
+    'no-static-element-interactions',
+    'role-has-required-aria-props',
+    'role-supports-aria-props',
+    'scope',
+    'tabindex-no-positive'
+];
+
+module.exports = {
+    env: {
+        browser: true,
+        es2021: true,
+    },
+    extends: [
+        'plugin:react/recommended',
+        'plugin:jest/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'airbnb',
+        'prettier',
+        'prettier/react',
+    ],
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        ecmaFeatures: {
+            jsx: true,
+        },
+        ecmaVersion: 12,
+        sourceType: 'module',
+    },
+    plugins: ['react', '@typescript-eslint', 'jest'],
+    rules: {
+        'no-use-before-define': 'off',
+        'import/prefer-default-export': 'off',
+        'react/no-array-index-key': 'off',
+        'react/prop-types': 'off',
+        'react/jsx-props-no-spreading': 'off',
+        'no-param-reassign': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        'no-shadow': 'off',
+        'no-debugger': 'warn',
+        'no-unused-vars': 'off',
+        'no-control-regex': 'off',
+        '@typescript-eslint/no-shadow': ['error'],
+        'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
+        'import/extensions': [
+            'error',
+            'ignorePackages',
+            {
+                js: 'never',
+                mjs: 'never',
+                jsx: 'never',
+                ts: 'never',
+                tsx: 'never',
+            },
+        ],
+        ...a11yRules.reduce((acc, rule) => { acc[`jsx-a11y/${rule}`] = 'off'; return acc }, {})
+    },
+    overrides: [
+        {
+            files: ['*.test.ts', '*.test.tsx'],
+            rules: {
+                '@typescript-eslint/ban-ts-comment': 'off',
+            },
+        },
+    ],
+    settings: {
+        'import/resolver': {
+            node: {
+                paths: ['src'],
+                extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+                moduleDirectory: ['node_modules', 'src'],
+            },
+        },
+    },
+};
